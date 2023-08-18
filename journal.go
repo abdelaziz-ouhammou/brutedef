@@ -11,6 +11,10 @@ import (
 )
 
 // journalWatcher is responsible for attaching to and reading from journalctl
+// badIPChannel is used for sending IPs to be blocked
+// errChannel is for unrecoverable errors
+// threshold is the number of times an IP will showup before it's blocked
+// badIPCount maintains a count for all IPs encountered
 type journalWatcher struct {
 	badIPChannel chan net.IP
 	errChannel   chan error
@@ -18,8 +22,7 @@ type journalWatcher struct {
 	badIPCount   map[string]int
 }
 
-// Returns a new journal watcher. Malicious IP addresses will be sent through
-// The badIPChannel when the retry count reaches the threshold
+// Returns a new journal watcher.
 func NewJournal(badIPChannel chan net.IP,
 	errChannel chan error, threshold int) *journalWatcher {
 	return &journalWatcher{

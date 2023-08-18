@@ -5,8 +5,6 @@ import (
 	"os"
 )
 
-var blockedIPs = map[string]struct{}{}
-
 func main() {
 	badIPChannel := make(chan net.IP, 10)
 	errChannel := make(chan error)

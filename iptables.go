@@ -71,7 +71,6 @@ func (b iptablesBlocker) startBlockingIPs() {
 			b.errChannel <- err
 			return
 		}
-		blockedIPs[ip.String()] = struct{}{}
 	}
 }
 
